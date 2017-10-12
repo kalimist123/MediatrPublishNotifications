@@ -33,16 +33,16 @@ namespace MediatrPublishNotifications
 
             var customer = new Customer(Guid.NewGuid(), message.Name, message.Email, message.BirthDate);
 
-            
-                //Bus.RaiseEvent(new DomainNotification(message.MessageType, "The customer e-mail has already been taken."));
-                //return;
-            
 
-           
+            Bus.RaiseEvent(new DomainNotification(message.MessageType, "The customer e-mail has already been taken."));
+            return;
 
-           
-                //Bus.RaiseEvent(new CustomerRegisteredEvent(customer.Id, customer.Name, customer.Email, customer.BirthDate));
-         
+
+
+
+
+            //Bus.RaiseEvent(new CustomerRegisteredEvent(customer.Id, customer.Name, customer.Email, customer.BirthDate));
+
         }
 
         public void Handle(UpdateCustomerCommand message)

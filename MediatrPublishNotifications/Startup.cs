@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 
 namespace MediatrPublishNotifications
 {
@@ -37,6 +39,15 @@ namespace MediatrPublishNotifications
             services.AddScoped<INotificationHandler<RegisterNewCustomerCommand>, CustomerCommandHandler>();
             services.AddScoped<INotificationHandler<UpdateCustomerCommand>, CustomerCommandHandler>();
             services.AddScoped<INotificationHandler<RemoveCustomerCommand>, CustomerCommandHandler>();
+
+            services.AddAutoMapper();
+
+
+            services.AddSingleton(Mapper.Configuration);
+            services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));
+            services.AddScoped<ICustomerAppService, CustomerAppService>();
+
+
 
 
         }

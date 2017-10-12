@@ -7,35 +7,33 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MediatrPublishNotifications
 {
-    public class NotificationController :BaseController
+    public class CustomerController :BaseController
     {
-        private readonly IMediator _mediator;
+        private readonly ICustomerAppService _customerAppService;
 
-
-        public NotificationController(IMediator mediator,
+        public CustomerController(ICustomerAppService customerAppService,
             INotificationHandler<DomainNotification> notifications) : base(notifications)
         {
-            this._mediator = mediator;
+            _customerAppService = customerAppService;
         }
 
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            
             return View();
         }
 
-
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
-            
             return View();
         }
+
         [HttpPost]
-        public IActionResult Create(NotificationViewModel customerViewModel)
+
+        public IActionResult Create(CustomerViewModel customerViewModel)
         {
             if (!ModelState.IsValid) return View(customerViewModel);
-             _mediator.Publish(new DomainNotification("Commit", "We had a problem during saving your data."));
+            _customerAppService.Register(customerViewModel);
 
             if (IsValidOperation())
                 ViewBag.Sucesso = "Customer Registered!";
