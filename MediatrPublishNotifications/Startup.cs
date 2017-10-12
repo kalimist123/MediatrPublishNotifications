@@ -25,6 +25,20 @@ namespace MediatrPublishNotifications
             services.AddMvc();
             services.AddMediatR();
             services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
+            services.AddScoped<IMediatorHandler, InMemoryBus>();
+
+            // Domain - Events
+            services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
+            services.AddScoped<INotificationHandler<CustomerRegisteredEvent>, CustomerEventHandler>();
+            services.AddScoped<INotificationHandler<CustomerUpdatedEvent>, CustomerEventHandler>();
+            services.AddScoped<INotificationHandler<CustomerRemovedEvent>, CustomerEventHandler>();
+
+            // Domain - Commands
+            services.AddScoped<INotificationHandler<RegisterNewCustomerCommand>, CustomerCommandHandler>();
+            services.AddScoped<INotificationHandler<UpdateCustomerCommand>, CustomerCommandHandler>();
+            services.AddScoped<INotificationHandler<RemoveCustomerCommand>, CustomerCommandHandler>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
