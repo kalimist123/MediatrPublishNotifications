@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using MediatR;
 
-namespace MediatrPublishNotifications
+namespace MediatrPublishNotifications.Commands
 {
     public class CustomerCommandHandler : CommandHandler,
         INotificationHandler<RegisterNewCustomerCommand>,

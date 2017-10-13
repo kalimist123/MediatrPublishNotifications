@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MediatrPublishNotifications
+namespace MediatrPublishNotifications.ViewComponents
 {
     public class SummaryViewComponent : ViewComponent
     {

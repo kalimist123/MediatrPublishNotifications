@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace MediatrPublishNotifications
+﻿namespace MediatrPublishNotifications.Commands
 {
     public class RegisterNewCustomerCommandValidation : CustomerValidation<RegisterNewCustomerCommand>
     {

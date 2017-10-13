@@ -40,6 +40,45 @@ namespace MediatrPublishNotifications
 
             return View(customerViewModel);
         }
+        [HttpGet]
+      
+        public IActionResult Edit(int id)
+        {
+          
+
+          //  var customerViewModel = _customerAppService.GetById(id.Value);
+
+
+            var customerViewModel = new CustomerViewModel
+            {
+                Id=Guid.NewGuid(),
+                BirthDate = DateTime.Now,
+                Name = "JimBob",
+                Email = "mick@mokc.com"
+            };
+
+            if (customerViewModel == null)
+            {
+                return NotFound();
+            }
+
+            return View(customerViewModel);
+        }
+
+
+
+        [HttpPost]
+        public IActionResult Edit(CustomerViewModel customerViewModel)
+        {
+           // if (!ModelState.IsValid) return View(customerViewModel);
+
+            _customerAppService.Update(customerViewModel);
+
+            if (IsValidOperation())
+                ViewBag.Sucesso = "Customer Updated!";
+
+            return View(customerViewModel);
+        }
 
     }
 }
