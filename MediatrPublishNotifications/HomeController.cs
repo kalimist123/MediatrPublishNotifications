@@ -12,24 +12,16 @@ namespace MediatrPublishNotifications
 public class HomeController : Controller
 {
 
-    private readonly IMediator _mediator;
+    
 
-    public HomeController(IMediator mediator)
-    {
-        this._mediator = mediator;
-    }
-    public async Task<IActionResult> Index()
-    {
-        await _mediator.Publish(new SomeEvent("Hello World"));
-        return View();
-    }
-
-
-    public async Task<IActionResult> Create()
+ 
+    public IActionResult Index()
     {
        
         return View();
     }
+
+
         // more code omitted
     }
 }
