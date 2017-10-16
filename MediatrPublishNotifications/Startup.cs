@@ -29,30 +29,14 @@ namespace MediatrPublishNotifications
            
           
             services.AddMvc();
+            
+
+         
             services.AddAutoMapper(typeof(Startup));
-
-            services.AddSingleton(Mapper.Configuration);
-            services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));
-            services.AddScoped<ICustomerAppService, CustomerAppService>();
-
-
-
             services.AddMediatR((typeof(Startup)));
 
-            services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
-            services.AddScoped<IMediatorHandler, InMemoryBus>();
+            RegisterServices(services);
 
-
-            // Domain - Events
-            services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
-            services.AddScoped<INotificationHandler<CustomerRegisteredEvent>, CustomerEventHandler>();
-            services.AddScoped<INotificationHandler<CustomerUpdatedEvent>, CustomerEventHandler>();
-            services.AddScoped<INotificationHandler<CustomerRemovedEvent>, CustomerEventHandler>();
-
-            // Domain - Commands
-            services.AddScoped<INotificationHandler<RegisterNewCustomerCommand>, CustomerCommandHandler>();
-            services.AddScoped<INotificationHandler<UpdateCustomerCommand>, CustomerCommandHandler>();
-            services.AddScoped<INotificationHandler<RemoveCustomerCommand>, CustomerCommandHandler>();
 
 
 
@@ -79,6 +63,12 @@ namespace MediatrPublishNotifications
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
             });
+        }
+
+        private static void RegisterServices(IServiceCollection services)
+        {
+            // Adding dependencies from another layers (isolated from Presentation)
+            NativeInjectorBootStrapper.RegisterServices(services);
         }
     }
 }
